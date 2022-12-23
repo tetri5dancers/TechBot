@@ -11,6 +11,11 @@ from handlers.echo import register_echo
 from handlers.user import register_user
 from middleware.db import ProcessMessage
 from utils.OneSConnector import OnesDB
+from aiohttp.web import run_app
+from aiohttp.web_app import Application
+#from handlers import router
+#from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
+from aiogram.types import MenuButtonWebApp, WebAppInfo
 
 
 API_TOKEN = tg_bot_token
@@ -40,7 +45,7 @@ def register_all_handlers(dp):
     register_admin(dp)
     register_user(dp)
 
-    register_echo(dp)
+    #register_echo(dp)
 
 
 async def on_startup(dp):
@@ -54,11 +59,21 @@ async def on_startup(dp):
 
     dp.intents = connector.init_data["intents"]
     dp.model_train()
+    await dp.get_tickets()
+
+    #dp.include_router(router)
+    #app = Application()
+    #app["bot"] = bot
+
+    #app.router.add_get("/app", demo_handler)
 
     register_all_filters(dp)
     register_all_handlers(dp)
     register_all_middlewares(dp)
     await bot.set_webhook(WEBHOOK_URL)
+    await bot.set_chat_menu_button(
+        menu_button=MenuButtonWebApp(text="APP", web_app=WebAppInfo(url=f"{WEBHOOK_HOST}/app"))
+    )
 
 
 async def on_shutdown(dp):

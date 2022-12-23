@@ -40,8 +40,15 @@ class OnesDB():
     def get_last_status(self):
         return self.last_status
 
-    def get_tasks(self):
-        pass
+    async def get_tasks(self):
+        url = self.baseUrl + "/ticket"
+        result = await self.request(url, "GET")
+        return result['tickets']
+
+    async def done_task(self, code, data):
+        url = self.baseUrl + f"/ticket/{code}"
+        result = await self.request(url, "POST", json=data)
+        return result
 
     def get_task(self):
         pass
@@ -71,10 +78,14 @@ class OnesDB():
 
 async def main():
     client = OnesDB('http://10.3.1.20/itservices/hs/bot')
+    tasks = await client.get_tasks()
     while client.get_last_status() == None:
         await asyncio.sleep(1)
 
+
+
     print(client.get_last_status())
+    print(tasks)
 
 
 

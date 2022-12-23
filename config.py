@@ -56,7 +56,8 @@ def load_config(path: str = None):
         oneSParams=OnesParams(env.str('ONES_BASEURL'))
     )
 
-tg_bot_token = '5114732527:AAHnGZxoZXxyjFPwbzjsaEWzhsR4n8HLQ6E'
+#tg_bot_token = '5114732527:AAHnGZxoZXxyjFPwbzjsaEWzhsR4n8HLQ6E'
+tg_bot_token = '1966851829:AAEnHWlVKv8TsfaqVjfnjLJn_7w78KFy0DA'
 
 pyrus_login = 'bot@ef152e07-5aa2-4123-9db6-882f2fa78f79'
 pyrus_secret = 'fuZaWmYuHGWMmcwdBKgUegBu3SlydNjEYEjH9P12Q6Tlbm6~jQRyfN~l47pcvMZNPSwqHqVJrnjWzwdOX979N0urgJYO7fqI'

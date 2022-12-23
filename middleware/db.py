@@ -27,6 +27,12 @@ class ProcessMessage(BaseMiddleware):
             print(msg)
             #msg = msg.update({"date": datetime.now()})
             result = await conn.message_process(msg)
+        elif message.caption is not None:
+            data["intent"] = dispatcher.get_intent(message.caption)
+            msg = message.to_python()
+            msg.update({"text": message.caption})
+            print(msg)
+            result = await conn.message_process(msg)
 
     async def on_process_callback_query(self, cq: types.CallbackQuery):
         print("Processing callback query")
